@@ -8,36 +8,72 @@ require "crack"
 
 Selenium::WebDriver::Chrome.driver_path="C:/chromedriver_win32/chromedriver1.exe"
 
-b = Watir::Browser.new
-b.goto 'https://my.fibank.bg/oauth2-server/login?client_id=E_BANK'
+$browser = Watir::Browser.new
+$browser.goto 'https://my.fibank.bg/oauth2-server/login?client_id=E_BANK'
 
-l = b.link text: 'English'
+l = $browser.link text: 'English'
 l.exists?
 l.click
 
-l = b.link text: 'Demo'
+l = $browser.link text: 'Demo'
 l.exists?
 l.click
 
 sleep(2)
-l = b.link text: 'See all'
+
+l = $browser.link text: 'See all'
 l.exists?
 l.click
 
-sleep(4)
+sleep(2)
 
-XML_CODE = Nokogiri::XML(open("https://my.fibank.bg/EBank/accounts/summ"))
-puts XML_CODE  # => Nokogiri::HTML::Document
+l = $browser.link text: 'Balance'
+l.exists?
+l.click
 
-File.open("blossom.xml", "a") do |file|
-  file.write(XML_CODE)
+def get_array(index, name_array, selector)
+  var = 0
+  while var < index
+    name_array[var] = $browser.element(index: var, css: selector).text.strip
+    var += 1
+  end
 end
 
-myXML  = Crack::XML.parse(File.read("blossom.xml"))
-myJSON = myXML.to_json
+get_array(2, name = [], "#step2 > div > div.blue-bg.h-68 > a" )
+puts name
+get_array(2, currency = [], "#step2 > div > div:nth-child(3) > div:nth-child(5) > span" )
+puts currency
+get_array(2, cur_balance = [], "#step2 > div > div:nth-child(3) > div:nth-child(2) > span" )
+puts cur_balance
 
-puts myJSON
+class Accounts
+  attr_accessor :name, :balance, :currency , :nature
 
-File.open("xml2json.json", "a") do |file|
-  file.write(myJSON)
+  def initialize(name, balance, currency, nature)
+    @name = name.chomp(' >')
+    @balance = balance
+    @currency = currency
+    @nature = nature
+  end
+
+  def as_json(options={})
+    {
+      name: @name,
+      balance: @balance,
+      currency: @currency,
+      nature: @nature
+    }
+  end
+
+  def to_json(*options)
+    as_json(*options).to_json(*options)
+  end
+end
+
+i = 0
+while i < 2
+  user = Accounts.new(name[i], currency[i], cur_balance[i], 'checking')
+  h = {:"account#{i+1}"=> user}
+  puts JSON.pretty_generate(h)
+  i += 1
 end
