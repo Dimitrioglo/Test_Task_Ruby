@@ -23,19 +23,17 @@ module Accounts
     l = $browser.link text: 'Demo'
     l.exists?
     l.click
-
-    sleep(2)
+    sleep 2
 
     l = $browser.link text: 'See all'
     l.exists?
     l.click
-
-    sleep(2)
+    sleep 2
 
     l = $browser.link text: 'Balance'
     l.exists?
     l.click
-    sleep(1)
+    sleep 1
     # счетчик количества аккаунтов
     $exit_condition = $browser.span(css: "#main_grid > div > div:nth-child(2) > div:nth-child(2) > div > div > div > span").text.to_i
 
@@ -55,7 +53,7 @@ module Accounts
     i = 0
     $account_json = []
     while i < $exit_condition
-      user = Accounts.new(name[i], currency[i], cur_balance[i], 'checking')
+      user = Accounts.new(name[i], cur_balance[i].to_f, currency[i], 'checking')
       hash = {}
       user.instance_variables.each { |var| hash[var.to_s.delete("@")] = user.instance_variable_get(var) }
       $account_json[i] = hash

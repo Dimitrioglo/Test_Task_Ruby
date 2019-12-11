@@ -1,8 +1,8 @@
 [
   {
     "name": "BG10FINV91501003939179",
-    "balance": "EUR",
-    "currency": "0.00",
+    "balance": 0.0,
+    "currency": "EUR",
     "nature": "checking",
     "transactions": [
 
@@ -10,35 +10,35 @@
   },
   {
     "name": "BG37FINV91501003939178",
-    "balance": "BGN",
-    "currency": "1 125.05",
+    "balance": 1.0,
+    "currency": "BGN",
     "nature": "checking",
     "transactions": [
       {
         "date": "28/10/2019",
         "description": "account maintenance charge",
-        "amount": "2.00",
+        "amount": 2.0,
         "currency": "BGN",
         "account_name": "BG37FINV91501003939178"
       },
       {
         "date": "31/10/2019",
         "description": "Ct interest paid to account",
-        "amount": "0.00",
+        "amount": 0.0,
         "currency": "BGN",
         "account_name": "BG37FINV91501003939178"
       },
       {
         "date": "27/11/2019",
         "description": "account maintenance charge",
-        "amount": "2.00",
+        "amount": 2.0,
         "currency": "BGN",
         "account_name": "BG37FINV91501003939178"
       },
       {
         "date": "30/11/2019",
         "description": "Ct interest paid to account",
-        "amount": "0.00",
+        "amount": 0.0,
         "currency": "BGN",
         "account_name": "BG37FINV91501003939178"
       }

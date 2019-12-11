@@ -24,27 +24,27 @@ module Transactions
     l = browser.link text: 'Demo'
     l.exists?
     l.click
-    sleep(2)
+    sleep 2
 
     l = browser.link text: 'See all'
     l.exists?
     l.click
-    sleep(2)
+    sleep 2
 
     l = browser.link text: 'Balance'
     l.exists?
     l.click
-    sleep(2)
+    sleep 2
 
     l = browser.link(index:1, text: 'Details')
     l.exists?
     l.click
-    sleep(2)
+    sleep 2
 
     l = browser.element(index: 0, css: "body > div.modal.fade.ng-isolate-scope.modal-521.acc-balance-det.in > div > div > div.modal-body.ng-scope > div.box-border.clearfix.acc-desc-box.ng-scope > div.pull-right.ng-scope > div > a:nth-child(2) > i")
     l.exists?
     l.click
-    sleep(2)
+    sleep 2
 
     l = browser.i(:class => 'i-triangle-down')
     l.exists?
@@ -53,13 +53,13 @@ module Transactions
     l = browser.i(:class => ["glyphicon", "glyphicon-chevron-left"])
     l.exists?
     l.double_click
-    sleep(2)
+    sleep 2
 
     browser.button(:class => ["btn", "btn-default", "btn-sm", "active"]).click
-    sleep(2)
+    sleep 2
 
     browser.i(:class => ["i-btn-arrow-r", "i-btn-blue-arrow"]).click
-    sleep(2)
+    sleep 2
 
     # счетчик количества аккаунтов
     exit_cond = browser.span(:class => ["blue-txt", "bold", "ng-binding", "ng-scope"]).text.to_i
@@ -82,7 +82,7 @@ module Transactions
     $transactions = []
     i = 0
     while i < exit_cond
-      user = Transactions.new(date[i], description[i], amount[i], account[23,3], account[0,22])
+      user = Transactions.new(date[i], description[i], amount[i].to_f, account[23,3], account[0,22])
       hash = {}
       user.instance_variables.each {|var| hash[var.to_s.delete("@")] = user.instance_variable_get(var)}
       $transactions[i] = hash
